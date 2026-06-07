@@ -1,0 +1,49 @@
+Group,Team
+Group A,Mexico
+Group A,South Africa
+Group A,South Korea
+Group A,Czechia
+Group B,Canada
+Group B,Bosnia
+Group B,Qatar
+Group B,Switzerland
+Group C,Brazil
+Group C,Morocco
+Group C,Haiti
+Group C,Scotland
+Group D,United States
+Group D,Paraguay
+Group D,Australia
+Group D,Turkey
+Group E,Germany
+Group E,Curacao
+Group E,Ivory Coast
+Group E,Ecuador
+Group F,Netherlands
+Group F,Japan
+Group F,Sweden
+Group F,Tunisia
+Group G,Belgium
+Group G,Egypt
+Group G,Iran
+Group G,New Zealand
+Group H,Spain
+Group H,Cape Verde
+Group H,Saudi Arabia
+Group H,Uruguay
+Group I,France
+Group I,Senegal
+Group I,Norway
+Group I,Bolivia
+Group J,Argentina
+Group J,Algeria
+Group J,Austria
+Group J,Jordan
+Group K,Portugal
+Group K,Uzbekistan
+Group K,Colombia
+Group K,Congo DR
+Group L,England
+Group L,Croatia
+Group L,Ghana
+Group L,Panama
