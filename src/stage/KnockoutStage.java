@@ -31,5 +31,22 @@ public class KnockoutStage {
         return rightSide;
     }
 
+    public void selectLeftSideTeams(){
+        int j = 0;
+        for (int i = 0; i < leftSide.length-1; i = i + 2){
+            leftSide[j] = allTeams.get(i);
+            j ++;
+        }
+    }
+
+    public void setRightSide(){
+        int j = 0;
+        for (int i = 1; i < rightSide.length-1; i = i + 2){
+            rightSide[j] = allTeams.get(i);
+            j ++;
+        }
+    }
+
+
 
 }
