@@ -3,43 +3,33 @@ package stage;
 import object.Team;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class KnockoutStage {
 
-    private ArrayList<Team> top1s;
+    private Team[] leftSide;
 
-    private ArrayList<Team> top2s;
+    private Team[] rightSide;
 
-    private ArrayList<Team> top3s;
+    private List<Team> allTeams;
 
-    private ArrayList<Team> leftSide;
-
-    private ArrayList<Team> rightSide;
-
-    private ArrayList<Team> allTeams;
-
-    public KnockoutStage(ArrayList<Team> top1s, ArrayList<Team> top2s, ArrayList<Team> top3s){
-        this.top1s = new ArrayList<>(top1s);
-        this.top2s = new ArrayList<>(top2s);
-        this.top3s = new ArrayList<>(top3s);
-        this.allTeams = new ArrayList<>();
-        // Adds all the teams in the order of top 1 to top 3
-        allTeams.addAll(top1s);
-        allTeams.addAll(top2s);
-        allTeams.addAll(top3s);
-        this.leftSide = new ArrayList<>();
-        this.rightSide = new ArrayList<>();
+    public KnockoutStage(int roundOfNumber, ArrayList<Team> allTeams){
+        this.allTeams = new ArrayList<>(allTeams);
+        this.leftSide = new Team[roundOfNumber/2];
+        this.rightSide = new Team[roundOfNumber/2];
     }
 
-    public ArrayList<Team> getAllTeams(){
+    public List<Team> getAllTeams(){
         return allTeams;
     }
 
-    public ArrayList<Team> getLeftSide() {
+    public Team[] getLeftSide() {
         return leftSide;
     }
 
-    public ArrayList<Team> getRightSide() {
+    public Team[] getRightSide() {
         return rightSide;
     }
+
+
 }
