@@ -33,9 +33,7 @@ public class Menu {
                     System.out.print("\nFirst Place: ");
                     firstPlace = scanner.nextInt();
                     if (firstPlace > 0 && firstPlace < 5) {
-                        for (int j = 0; j < group[i].getSize(); j++) {
-                            groupStage.addToTop1(group[i].getTeams().get(firstPlace - 1));
-                        }
+                        groupStage.addToTop1(group[i].getTeams().get(firstPlace - 1));
                         break;
                     }
                 } catch (InputMismatchException e) {
@@ -49,10 +47,11 @@ public class Menu {
                     System.out.print("\nSecond Place: ");
                     secPlace = scanner.nextInt();
                     if (secPlace > 0 && secPlace < 5 && secPlace != firstPlace) {
-                        for (int j = 0; j < group[i].getSize(); j++) {
-                            groupStage.addTop2s(group[i].getTeams().get(secPlace - 1));
-                        }
+                        groupStage.addTop2s(group[i].getTeams().get(secPlace - 1));
                         break;
+                    }
+                    else{
+                        System.out.println("The team is already selected");
                     }
                 } catch (InputMismatchException e) {
                     System.out.println("Please enter a valid number");
@@ -65,15 +64,55 @@ public class Menu {
                     System.out.print("\nThird Place: ");
                     thirdPlace = scanner.nextInt();
                     if (thirdPlace > 0 && thirdPlace < 5 && thirdPlace != firstPlace && thirdPlace != secPlace) {
-                        for (int j = 0; j < group[i].getSize(); j++) {
-                            groupStage.addTop3s(group[i].getTeams().get(thirdPlace - 1));
-                        }
+                        groupStage.addTop3s(group[i].getTeams().get(thirdPlace - 1));
                         break;
+                    }
+                    else{
+                        System.out.println("The team is already selected");
                     }
                 } catch (InputMismatchException e) {
                     System.out.println("Please enter a valid number");
                 }
             }
+        }
+        chooseBestTop3s(groupStage);
+    }
+
+    private static void chooseBestTop3s(GroupStage groupStage) {
+        System.out.println("\n-----------------------Top 3s-----------------------");
+        for (int i = 0; i < groupStage.getTop3s().size(); i++) {
+            System.out.println(i + 1 + ". " + groupStage.getTop3s().get(i));
+        }
+        while (true) {
+            try {
+                for (int i = 0; i < 8; i++) {
+                    Scanner scanner = new Scanner(System.in);
+                    System.out.print("Best Third Place Team: ");
+                    int option = scanner.nextInt();
+                    if (option < 9 && option > 0 && groupStage.top3sContains(groupStage.getTop3s().get(option - 1)) == false) {
+                        groupStage.addBestTop3s(groupStage.getTop3s().get(option - 1));
+                    }
+                }
+                break;
+            } catch (InputMismatchException e) {
+                System.out.println("Please enter a valid number");
+            }
+        }
+        displayAllTopTeams(groupStage);
+    }
+
+    private static void displayAllTopTeams(GroupStage groupStage){
+        System.out.println("\n-----------------------Top 1s-----------------------");
+        for (int i = 0; i < groupStage.getTop1s().size(); i++){
+            System.out.println(i+1 + ". " + groupStage.getTop1s().get(i));
+        }
+        System.out.println("\n-----------------------Top 2s-----------------------");
+        for (int i = 0; i < groupStage.getTop2s().size(); i++){
+            System.out.println(i+1 + ". " + groupStage.getTop2s().get(i));
+        }
+        System.out.println("\n-----------------------Top 3s-----------------------");
+        for (int i = 0; i < groupStage.getBestTop3s().size(); i++){
+            System.out.println(i+1 + ". " + groupStage.getBestTop3s().get(i));
         }
     }
 }
