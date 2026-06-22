@@ -50,7 +50,7 @@ public class Menu {
                         groupStage.addTop2s(group[i].getTeams().get(secPlace - 1));
                         break;
                     }
-                    else{
+                    else if (secPlace == firstPlace){
                         System.out.println("The team is already selected");
                     }
                 } catch (InputMismatchException e) {
@@ -67,7 +67,7 @@ public class Menu {
                         groupStage.addTop3s(group[i].getTeams().get(thirdPlace - 1));
                         break;
                     }
-                    else{
+                    else if (thirdPlace == firstPlace || thirdPlace == secPlace){
                         System.out.println("The team is already selected");
                     }
                 } catch (InputMismatchException e) {
@@ -87,9 +87,9 @@ public class Menu {
             try {
                 for (int i = 0; i < 8; i++) {
                     Scanner scanner = new Scanner(System.in);
-                    System.out.print("Best Third Place Team: ");
+                    System.out.print("Top " + (i+1) + " Third Place Team: ");
                     int option = scanner.nextInt();
-                    if (option < 9 && option > 0 && groupStage.top3sContains(groupStage.getTop3s().get(option - 1)) == false) {
+                    if (option < 13 && option > 0 && groupStage.top3sContains(groupStage.getTop3s().get(option - 1)) == false) {
                         groupStage.addBestTop3s(groupStage.getTop3s().get(option - 1));
                     }
                 }
@@ -114,5 +114,26 @@ public class Menu {
         for (int i = 0; i < groupStage.getBestTop3s().size(); i++){
             System.out.println(i+1 + ". " + groupStage.getBestTop3s().get(i));
         }
+        boolean isRunning = true;
+        while (isRunning){
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("\nClick N to move to the next round... (X to exit)");
+            String option = scanner.nextLine();
+            if (option.toUpperCase().equals("X")){
+                exitBracket();
+            }
+            else if (option.toUpperCase().equals("N")){
+                bestOf32(groupStage);
+                isRunning = false;
+            }
+        }
+    }
+
+    private static void bestOf32(GroupStage groupStage){
+        System.out.println("\n----------------------------Best of 32----------------------------\n");
+    }
+
+    private static void exitBracket(){
+        System.exit(0);
     }
 }
