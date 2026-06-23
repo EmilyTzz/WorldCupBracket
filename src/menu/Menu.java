@@ -132,14 +132,18 @@ public class Menu {
         bestOf32teams.addAll(groupStage.getTop2s());
         bestOf32teams.addAll(groupStage.getBestTop3s());
         KnockoutMatchesDivider knockoutMatchesDivider = new KnockoutMatchesDivider(bestOf32teams, 32);
-        knockoutMatchesDivider.selectLeftSideTeams();
-        knockoutMatchesDivider.selectRightSideTeams();
-        //System.out.println(new ArrayList<>(knockoutMatchesDivider.getLeftSide()));
-        //System.out.println(new ArrayList<>(knockoutMatchesDivider.getRightSide()));
-        Match[] leftSideMatches = knockoutMatchesDivider.getMatches(new ArrayList<>(knockoutMatchesDivider.getLeftSide()));
-        Match[] rightSideMatches = knockoutMatchesDivider.getMatches(new ArrayList<>(knockoutMatchesDivider.getRightSide()));
-        System.out.println(Arrays.toString(leftSideMatches));
-        System.out.println(Arrays.toString(rightSideMatches));
+        Match[] leftSideMatches = knockoutMatchesDivider.getMatches(new ArrayList<>(knockoutMatchesDivider.selectLeftSideTeams()));
+        Match[] rightSideMatches = knockoutMatchesDivider.getMatches(new ArrayList<>(knockoutMatchesDivider.selectRightSideTeams()));
+        //System.out.println(Arrays.toString(leftSideMatches));
+        //System.out.println(Arrays.toString(rightSideMatches));
+        System.out.println("\n-----------------------Left Bracket-----------------------");
+        for (int i = 0; i < leftSideMatches.length; i++){
+            System.out.println(i+1 + ". " + leftSideMatches[i].toString());
+        }
+        System.out.println("\n-----------------------Right Bracket-----------------------");
+        for (int i = 0; i < rightSideMatches.length; i++){
+            System.out.println(i+1 + ". " + rightSideMatches[i].toString());
+        }
     }
 
     private static void exitBracket(){

@@ -4,6 +4,7 @@ import stage.KnockoutStage;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -23,27 +24,25 @@ public class KnockoutMatchesDivider {
 
     public KnockoutMatchesDivider(ArrayList<Team> teams, int roundOfNumber){
         this.teams = new ArrayList<>(teams);
-        this.leftSide = new ArrayList<>(teams.subList(0, teams.size()/2));
-        this.rightSide = new ArrayList<>(teams.subList(teams.size()/2, teams.size()));
+        this.leftSide = new ArrayList<>();
+        this.rightSide = new ArrayList<>();
         this.leftSideMatches = new Match[roundOfNumber/4];
         this.rightSideMatches = new Match[roundOfNumber/4];
         this.roundOfNumber = roundOfNumber;
     }
 
-    public void selectLeftSideTeams(){
-        int j = 0;
-        for (int i = 0; i < leftSide.size()-1; i = i + 2){
+    public ArrayList<Team> selectLeftSideTeams(){
+        for (int i = 0; i < teams.size(); i = i + 2){
             leftSide.add(teams.get(i));
-            j ++;
         }
+        return leftSide;
     }
 
-    public void selectRightSideTeams(){
-        int j = 0;
-        for (int i = 1; i < rightSide.size()-1; i = i + 2){
+    public ArrayList<Team> selectRightSideTeams(){
+        for (int i = 1; i < teams.size(); i = i + 2){
             rightSide.add(teams.get(i));
-            j ++;
         }
+        return rightSide;
     }
 
     public ArrayList<Team> getLeftSide(){
@@ -54,23 +53,31 @@ public class KnockoutMatchesDivider {
         return rightSide;
     }
 
-    private ArrayList<Team> sortTeams(ArrayList<Team> teams){
-        ArrayList<Team> sortedTeams = new ArrayList<>(teams); // List that stores the sorted teams that makes sure the teams with the same group would not meet again
+    private ArrayList<Team> sortTeams(ArrayList<Team> allTeams){
+        ArrayList<Team> sortedTeams = new ArrayList<>(allTeams); // List that stores the sorted teams that makes sure the teams with the same group would not meet again
         for (int i = 0; i < sortedTeams.size(); i ++){ // Loops through the weaker team list
             if (sortedTeams.get(i).getGroup().equals(sortedTeams.get(sortedTeams.size()-i-1).getGroup())){ // if the last strongest team is the same group as the best top 3 team
                 Collections.swap(sortedTeams, sortedTeams.size()-i-1, sortedTeams.size()-i-2);
             }
         }
-        System.out.println(sortedTeams);
+        //System.out.println(sortedTeams);
+        //System.out.println(sortedTeams.size());
         return sortedTeams;
     }
 
-    public Match[] getMatches(ArrayList<Team> teams){
-        teams = sortTeams(teams);
+    public Match[] getMatches(ArrayList<Team> allTeams){
+        allTeams = sortTeams(allTeams);
         Match[] matches = new Match[roundOfNumber/4];
-        for (int i = 0; i < (teams.size()/2)-1; i ++){
-            Match match = new Match(teams.get(i), teams.get(teams.size()-i-1));
+        //System.out.println(allTeams);
+        int j = 0;
+        for (int i = 0; i < (allTeams.size()); i ++){
+            Match match = new Match(allTeams.get(i), allTeams.get(allTeams.size()-i-1));
             matches[i] = match;
+            //System.out.println(Arrays.toString(matches));
+            j++;
+            if (j == roundOfNumber/4){
+                break;
+            }
         }
         return matches;
     }
