@@ -4,6 +4,7 @@ import stage.KnockoutStage;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class KnockoutMatchesDivider {
@@ -22,8 +23,8 @@ public class KnockoutMatchesDivider {
 
     public KnockoutMatchesDivider(ArrayList<Team> teams, int roundOfNumber){
         this.teams = new ArrayList<>(teams);
-        this.leftSide = new ArrayList<>();
-        this.rightSide = new ArrayList<>();
+        this.leftSide = new ArrayList<>(teams.subList(0, teams.size()/2));
+        this.rightSide = new ArrayList<>(teams.subList(teams.size()/2, teams.size()));
         this.leftSideMatches = new Match[roundOfNumber/4];
         this.rightSideMatches = new Match[roundOfNumber/4];
         this.roundOfNumber = roundOfNumber;
@@ -45,43 +46,32 @@ public class KnockoutMatchesDivider {
         }
     }
 
+    public ArrayList<Team> getLeftSide(){
+        return leftSide;
+    }
+
+    public ArrayList<Team> getRightSide() {
+        return rightSide;
+    }
+
     private ArrayList<Team> sortTeams(ArrayList<Team> teams){
-        ArrayList<Team> strongerTeams = new ArrayList<>(teams.subList(0,teams.size()/2)); // Stronger teams is the first half of the list
-        ArrayList<Team> weakerTeams = new ArrayList<>(teams.subList(teams.size()/2, teams.size())); // Weaker teams is the last half
-        ArrayList<Team> sortedTeams = new ArrayList<>(strongerTeams); // List that stores the sorted teams that makes sure the teams with the same group would not meet again
-        for (int i = 0; i < weakerTeams.size(); i ++){ // Loops through the weaker team list
-            if (i == weakerTeams.size()-1){ // if i is at the last index
-                if (strongerTeams.get(i).getGroup().equals(weakerTeams.get(weakerTeams.size()-i).getGroup())){ // if the last strongest team is the same group as the best top 3 team
-                    sortedTeams.remove(i+2); // remove the second-weakest team
-                    sortedTeams.add(i+2, weakerTeams.get(weakerTeams.size()-i)); // replace the second-weakest team's place with the best weakest tea,
-                    sortedTeams.add(i+1, weakerTeams.get(weakerTeams.size()-i+1));
-                }
-            }
-            else if(strongerTeams.get(i).getGroup().equals(weakerTeams.get(weakerTeams.size()-i).getGroup())){
-                sortedTeams.add(weakerTeams.get(weakerTeams.size()-(i-1)));
-            }
-            else{
-                sortedTeams.add(weakerTeams.get(weakerTeams.size()-i));
+        ArrayList<Team> sortedTeams = new ArrayList<>(teams); // List that stores the sorted teams that makes sure the teams with the same group would not meet again
+        for (int i = 0; i < sortedTeams.size(); i ++){ // Loops through the weaker team list
+            if (sortedTeams.get(i).getGroup().equals(sortedTeams.get(sortedTeams.size()-i-1).getGroup())){ // if the last strongest team is the same group as the best top 3 team
+                Collections.swap(sortedTeams, sortedTeams.size()-i-1, sortedTeams.size()-i-2);
             }
         }
+        System.out.println(sortedTeams);
         return sortedTeams;
     }
 
-
     public Match[] getMatches(ArrayList<Team> teams){
-
+        teams = sortTeams(teams);
         Match[] matches = new Match[roundOfNumber/4];
         for (int i = 0; i < (teams.size()/2)-1; i ++){
-            if (!(teams.get(i).getGroup().equals(teams.get(teams.size()).getGroup()))){
-                Match match = new Match(teams.get(i), teams.get(teams.size()));
-                matches[i] = match;
-                teams.remove(i);
-                teams.remove(teams.size());
-            }else{
-
-            }
+            Match match = new Match(teams.get(i), teams.get(teams.size()-i-1));
+            matches[i] = match;
         }
-
         return matches;
     }
 }

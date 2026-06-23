@@ -104,4 +104,24 @@ public class GroupStage {
         return groups;
     }
 
+    public List<Team> selectLeftSideTeams(ArrayList<Team> teams){
+        int j = 0;
+        ArrayList<Team> leftSide = new ArrayList<>();
+        for (int i = 0; i < (teams.size()/2)-1; i = i + 2){
+            leftSide.add(teams.get(i));
+            j ++;
+        }
+        return leftSide;
+    }
+
+    public List<Team> selectRightSideTeams(ArrayList<Team> teams){
+        int j = 0;
+        ArrayList<Team> rightSide = new ArrayList<>();
+        for (int i = 1; i < (teams.size()/2)-1; i = i + 2){
+            rightSide.add(teams.get(i));
+            j ++;
+        }
+        return rightSide;
+    }
+
 }
