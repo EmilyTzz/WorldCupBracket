@@ -11,5 +11,9 @@ public class Match {
         this.team2 = team2;
     }
 
+    @Override
+    public String toString() {
+        return team1.getName() + " vs " + team2.getName();
+    }
 
 }
