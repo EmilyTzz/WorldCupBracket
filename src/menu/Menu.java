@@ -11,6 +11,10 @@ import java.util.*;
 
 public class Menu {
 
+    private static final String LEFT = "Left";
+
+    private static final String RIGHT = "Right";
+
     public static void mainMenu(List<Team> teams) {
         System.out.println("\n----------------------------Group Stage----------------------------\n");
         GroupStage groupStage = new GroupStage(teams, teams.size());
@@ -146,33 +150,43 @@ public class Menu {
             System.out.println(i+1 + ". " + rightSideMatches[i].toString());
         }
         KnockoutStage knockoutStage = new KnockoutStage(32);
-        bestOf16SelectionLeftBracket(groupStage, leftSideMatches, knockoutStage);
+        bestOf16SelectionBracket(LEFT, groupStage, leftSideMatches, knockoutStage);
+        bestOf16SelectionBracket(RIGHT, groupStage, rightSideMatches, knockoutStage);
     }
 
-    private static void bestOf16SelectionLeftBracket(GroupStage groupStage, Match[] leftSideMatches, KnockoutStage knockoutStage) {
-        System.out.println("\n-----------------------Left Bracket-----------------------");
-        for (int i = 0; i < leftSideMatches.length; i++) {
-            System.out.println(i + 1 + ". " + leftSideMatches[i].toString());
-            System.out.println("    1. " + leftSideMatches[i].getTeam1());
-            System.out.println("    2. " + leftSideMatches[i].getTeam2());
+    private static void bestOf16SelectionBracket(String side, GroupStage groupStage, Match[] matches, KnockoutStage knockoutStage) {
+        System.out.println("\n-----------------------" + side + " Bracket-----------------------");
+        for (int i = 0; i < matches.length; i++) {
+            System.out.println(i + 1 + ". " + matches[i].toString());
+            System.out.println("    1. " + matches[i].getTeam1());
+            System.out.println("    2. " + matches[i].getTeam2());
             while (true){
                 try{
                     System.out.println("Winner: ");
                     Scanner scanner = new Scanner(System.in);
                     int option = scanner.nextInt();
                     if (option == 1){
-                        knockoutStage.addToLeftSide(leftSideMatches[i].getTeam1(), i);
+                        if (side.equals(LEFT)){
+                            knockoutStage.addToLeftSide(matches[i].getTeam1(), i);
+                        }
+                        else if (side.equals(RIGHT)){
+                            knockoutStage.addToRightSide(matches[i].getTeam1(), i);
+                        }
                         break;
                     }
                     else if (option == 2){
-                        knockoutStage.addToLeftSide(leftSideMatches[i].getTeam2(), i);
+                        if (side.equals(RIGHT)){
+                            knockoutStage.addToLeftSide(matches[i].getTeam2(), i);
+                        }
+                        else if (side.equals(RIGHT)){
+                            knockoutStage.addToRightSide(matches[i].getTeam2(), i);
+                        }
                         break;
                     }
                 }catch (IllegalArgumentException e){
                     System.out.println("Please select a valid Team");
                 }
             }
-
         }
     }
 
