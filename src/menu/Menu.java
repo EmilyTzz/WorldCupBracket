@@ -5,6 +5,7 @@ import object.KnockoutMatchesDivider;
 import object.Match;
 import object.Team;
 import stage.GroupStage;
+import stage.KnockoutStage;
 
 import java.util.*;
 
@@ -119,13 +120,13 @@ public class Menu {
             if (option.toUpperCase().equals("X")) {
                 exitBracket();
             } else if (option.toUpperCase().equals("N")) {
-                bestOf32(groupStage);
+                bestOf32Display(groupStage);
                 isRunning = false;
             }
         }
     }
 
-    private static void bestOf32(GroupStage groupStage) {
+    private static void bestOf32Display(GroupStage groupStage) {
         System.out.println("\n----------------------------Best of 32----------------------------\n");
         ArrayList<Team> bestOf32teams = new ArrayList<>();
         bestOf32teams.addAll(groupStage.getTop1s());
@@ -143,6 +144,35 @@ public class Menu {
         System.out.println("\n-----------------------Right Bracket-----------------------");
         for (int i = 0; i < rightSideMatches.length; i++){
             System.out.println(i+1 + ". " + rightSideMatches[i].toString());
+        }
+        KnockoutStage knockoutStage = new KnockoutStage(32);
+        bestOf16SelectionLeftBracket(groupStage, leftSideMatches, knockoutStage);
+    }
+
+    private static void bestOf16SelectionLeftBracket(GroupStage groupStage, Match[] leftSideMatches, KnockoutStage knockoutStage) {
+        System.out.println("\n-----------------------Left Bracket-----------------------");
+        for (int i = 0; i < leftSideMatches.length; i++) {
+            System.out.println(i + 1 + ". " + leftSideMatches[i].toString());
+            System.out.println("    1. " + leftSideMatches[i].getTeam1());
+            System.out.println("    2. " + leftSideMatches[i].getTeam2());
+            while (true){
+                try{
+                    System.out.println("Winner: ");
+                    Scanner scanner = new Scanner(System.in);
+                    int option = scanner.nextInt();
+                    if (option == 1){
+                        knockoutStage.addToLeftSide(leftSideMatches[i].getTeam1(), i);
+                        break;
+                    }
+                    else if (option == 2){
+                        knockoutStage.addToLeftSide(leftSideMatches[i].getTeam2(), i);
+                        break;
+                    }
+                }catch (IllegalArgumentException e){
+                    System.out.println("Please select a valid Team");
+                }
+            }
+
         }
     }
 

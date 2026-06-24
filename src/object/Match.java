@@ -16,4 +16,12 @@ public class Match {
         return team1.getName() + " vs " + team2.getName();
     }
 
+    public Team getTeam1(){
+        return team1;
+    }
+
+    public Team getTeam2(){
+        return team2;
+    }
+
 }
