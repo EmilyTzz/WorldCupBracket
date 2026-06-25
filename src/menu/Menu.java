@@ -11,9 +11,11 @@ import java.util.*;
 
 public class Menu {
 
-    private static final String LEFT = "Left";
+    private static final String LEFT = "Left Bracket";
 
-    private static final String RIGHT = "Right";
+    private static final String RIGHT = "Right Bracket";
+
+    private static final String FINAL = "Final";
 
     public static void mainMenu(List<Team> teams) {
         System.out.println("\n----------------------------Group Stage----------------------------\n");
@@ -124,23 +126,39 @@ public class Menu {
             if (option.toUpperCase().equals("X")) {
                 exitBracket();
             } else if (option.toUpperCase().equals("N")) {
-                bestOf32Display(groupStage);
+                transitionRounds(groupStage);
                 isRunning = false;
             }
         }
     }
 
-    private static void bestOf32Display(GroupStage groupStage) {
-        System.out.println("\n----------------------------Best of 32----------------------------\n");
+    private static void transitionRounds(GroupStage groupStage){
         ArrayList<Team> bestOf32teams = new ArrayList<>();
         bestOf32teams.addAll(groupStage.getTop1s());
         bestOf32teams.addAll(groupStage.getTop2s());
         bestOf32teams.addAll(groupStage.getBestTop3s());
         KnockoutMatchesDivider knockoutMatchesDivider = new KnockoutMatchesDivider(bestOf32teams, 32);
-        Match[] leftSideMatches = knockoutMatchesDivider.getMatches(new ArrayList<>(knockoutMatchesDivider.selectLeftSideTeams()));
-        Match[] rightSideMatches = knockoutMatchesDivider.getMatches(new ArrayList<>(knockoutMatchesDivider.selectRightSideTeams()));
-        //System.out.println(Arrays.toString(leftSideMatches));
-        //System.out.println(Arrays.toString(rightSideMatches));
+        Match[] leftSideMatches = roundOf32MatchDivider(knockoutMatchesDivider, LEFT);
+        Match[] rightSideMatches = roundOf32MatchDivider(knockoutMatchesDivider, RIGHT);
+        KnockoutStage roundOf32 = knockoutRoundDisplay(32, leftSideMatches, rightSideMatches);
+        KnockoutStage roundOf16 = knockoutRoundDisplay(16, roundOf32.getNextRoundLeftSide(), roundOf32.getNextRoundRightSide());
+        KnockoutStage quarterFinals = knockoutRoundDisplay(8, roundOf16.getNextRoundLeftSide(), roundOf16.getNextRoundRightSide());
+        KnockoutStage semiFinals = knockoutRoundDisplay(4, quarterFinals.getNextRoundLeftSide(), quarterFinals.getNextRoundRightSide());
+        KnockoutRoundSelectionBracket(FINAL, semiFinals.getFinalTeams(), semiFinals);
+    }
+
+    private static Match[] roundOf32MatchDivider(KnockoutMatchesDivider knockoutMatchesDivider, String side){
+        if (side.equals(LEFT)){
+            return knockoutMatchesDivider.getMatches(new ArrayList<>(knockoutMatchesDivider.selectLeftSideTeams()));
+        }
+        else if (side.equals(RIGHT)){
+            return knockoutMatchesDivider.getMatches(new ArrayList<>(knockoutMatchesDivider.selectRightSideTeams()));
+        }
+        return null;
+    }
+
+    private static KnockoutStage knockoutRoundDisplay(int roundNumber, Match[] leftSideMatches, Match[] rightSideMatches) {
+        System.out.println("\n----------------------------Best of " + roundNumber + "----------------------------\n");
         System.out.println("\n-----------------------Left Bracket-----------------------");
         for (int i = 0; i < leftSideMatches.length; i++){
             System.out.println(i+1 + ". " + leftSideMatches[i].toString());
@@ -149,20 +167,21 @@ public class Menu {
         for (int i = 0; i < rightSideMatches.length; i++){
             System.out.println(i+1 + ". " + rightSideMatches[i].toString());
         }
-        KnockoutStage knockoutStage = new KnockoutStage(32);
-        bestOf16SelectionBracket(LEFT, groupStage, leftSideMatches, knockoutStage);
-        bestOf16SelectionBracket(RIGHT, groupStage, rightSideMatches, knockoutStage);
+        KnockoutStage knockoutStage = new KnockoutStage(roundNumber);
+        KnockoutRoundSelectionBracket(LEFT, leftSideMatches, knockoutStage);
+        KnockoutRoundSelectionBracket(RIGHT, rightSideMatches, knockoutStage);
+        return knockoutStage;
     }
 
-    private static void bestOf16SelectionBracket(String side, GroupStage groupStage, Match[] matches, KnockoutStage knockoutStage) {
-        System.out.println("\n-----------------------" + side + " Bracket-----------------------");
+    private static void KnockoutRoundSelectionBracket(String side, Match[] matches, KnockoutStage knockoutStage) {
+        System.out.println("\n-----------------------" + side + "-----------------------");
         for (int i = 0; i < matches.length; i++) {
             System.out.println(i + 1 + ". " + matches[i].toString());
             System.out.println("    1. " + matches[i].getTeam1());
             System.out.println("    2. " + matches[i].getTeam2());
             while (true){
                 try{
-                    System.out.println("Winner: ");
+                    System.out.print("Winner: ");
                     Scanner scanner = new Scanner(System.in);
                     int option = scanner.nextInt();
                     if (option == 1){
@@ -172,14 +191,20 @@ public class Menu {
                         else if (side.equals(RIGHT)){
                             knockoutStage.addToRightSide(matches[i].getTeam1(), i);
                         }
+                        else if (side.equals(FINAL)){
+                            winnerDisplay(matches[i].getTeam1());
+                        }
                         break;
                     }
                     else if (option == 2){
-                        if (side.equals(RIGHT)){
+                        if (side.equals(LEFT)){
                             knockoutStage.addToLeftSide(matches[i].getTeam2(), i);
                         }
                         else if (side.equals(RIGHT)){
                             knockoutStage.addToRightSide(matches[i].getTeam2(), i);
+                        }
+                        else if (side.equals(FINAL)){
+                            winnerDisplay(matches[i].getTeam2());
                         }
                         break;
                     }
@@ -188,6 +213,10 @@ public class Menu {
                 }
             }
         }
+    }
+
+    private static void winnerDisplay(Team team){
+        System.out.println("Winner of the World Cup: " + team.getName());
     }
 
     private static void exitBracket(){
