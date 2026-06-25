@@ -4,6 +4,7 @@ import object.Match;
 import object.Team;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class KnockoutStage {
@@ -21,13 +22,23 @@ public class KnockoutStage {
 
     private Team[] nextRoundRightSideTeams;
 
+    private Match[] finalTeams;
+
     public KnockoutStage(int roundOfNumber){
-        //this.leftSideMatches = leftSideMatches;
-        //this.rightSideMatches = rightSideMatches;
-        this.nextRoundLeftSideMatches = new Match[roundOfNumber/4];
-        this.nextRoundRightSideMatches = new Match[roundOfNumber/4];
-        this.nextRoundLeftSideTeams = new Team[roundOfNumber/2];
-        this.nextRoundRightSideTeams = new Team[roundOfNumber/2];
+        if (roundOfNumber > 4){
+            this.nextRoundLeftSideTeams = new Team[roundOfNumber/2];
+            this.nextRoundRightSideTeams = new Team[roundOfNumber/2];
+            this.nextRoundLeftSideMatches = new Match[roundOfNumber/8];
+            this.nextRoundRightSideMatches = new Match[roundOfNumber/8];
+            this.finalTeams = new Match[2];
+        }
+        else if (roundOfNumber == 4){
+            this.nextRoundLeftSideTeams = new Team[1];
+            this.nextRoundRightSideTeams = new Team[1];
+            this.nextRoundLeftSideMatches = null;
+            this.nextRoundRightSideMatches = null;
+            this.finalTeams = new Match[1];
+        }
     }
 
     public void addToLeftSide(Team winningTeam, int index){
@@ -47,6 +58,7 @@ public class KnockoutStage {
                 j ++;
             }
         }
+        //System.out.println(Arrays.toString(nextRoundLeftSideMatches));
         return nextRoundLeftSideMatches;
     }
 
@@ -60,5 +72,16 @@ public class KnockoutStage {
             }
         }
         return nextRoundRightSideMatches;}
+
+    public Match[] getFinalTeams(){
+        if (nextRoundLeftSideTeams.length == 1 && nextRoundRightSideTeams.length == 1){
+            if (nextRoundLeftSideTeams[0] instanceof Team team && nextRoundRightSideTeams[0] instanceof Team team2){
+                Match match = new Match(team, team2);
+                finalTeams[0] = match;
+                return finalTeams;
+            }
+        }
+        return null;
+    }
 
 }
