@@ -17,6 +17,8 @@ public class Menu {
 
     private static final String FINAL = "Final";
 
+    private static final String THIRD_PLACE_PLAYOFF = "Third-Place Play-off";
+
     public static void mainMenu(List<Team> teams) {
         System.out.println("\n----------------------------Group Stage----------------------------\n");
         GroupStage groupStage = new GroupStage(teams, teams.size());
@@ -144,6 +146,7 @@ public class Menu {
         KnockoutStage roundOf16 = knockoutRoundDisplay(16, roundOf32.getNextRoundLeftSide(), roundOf32.getNextRoundRightSide());
         KnockoutStage quarterFinals = knockoutRoundDisplay(8, roundOf16.getNextRoundLeftSide(), roundOf16.getNextRoundRightSide());
         KnockoutStage semiFinals = knockoutRoundDisplay(4, quarterFinals.getNextRoundLeftSide(), quarterFinals.getNextRoundRightSide());
+        KnockoutRoundSelectionBracket(THIRD_PLACE_PLAYOFF, semiFinals.getThirdPlaceTeams(), semiFinals);
         KnockoutRoundSelectionBracket(FINAL, semiFinals.getFinalTeams(), semiFinals);
     }
 
@@ -187,24 +190,42 @@ public class Menu {
                     if (option == 1){
                         if (side.equals(LEFT)){
                             knockoutStage.addToLeftSide(matches[i].getTeam1(), i);
+                            if (knockoutStage.getRoundOfNumber() == 4){
+                                knockoutStage.addToLeftSide(matches[i].getTeam2(), i+1);
+                            }
                         }
                         else if (side.equals(RIGHT)){
                             knockoutStage.addToRightSide(matches[i].getTeam1(), i);
+                            if (knockoutStage.getRoundOfNumber() == 4){
+                                knockoutStage.addToRightSide(matches[i].getTeam2(), i+1);
+                            }
                         }
                         else if (side.equals(FINAL)){
                             winnerDisplay(matches[i].getTeam1());
+                        }
+                        else if (side.equals(THIRD_PLACE_PLAYOFF)){
+                            thirdPlaceDisplay(matches[i].getTeam1());
                         }
                         break;
                     }
                     else if (option == 2){
                         if (side.equals(LEFT)){
                             knockoutStage.addToLeftSide(matches[i].getTeam2(), i);
+                            if (knockoutStage.getRoundOfNumber() == 4){
+                                knockoutStage.addToLeftSide(matches[i].getTeam1(), i+1);
+                            }
                         }
                         else if (side.equals(RIGHT)){
                             knockoutStage.addToRightSide(matches[i].getTeam2(), i);
+                            if (knockoutStage.getRoundOfNumber() == 4){
+                                knockoutStage.addToRightSide(matches[i].getTeam1(), i+1);
+                            }
                         }
                         else if (side.equals(FINAL)){
                             winnerDisplay(matches[i].getTeam2());
+                        }
+                        else if (side.equals(THIRD_PLACE_PLAYOFF)){
+                            thirdPlaceDisplay(matches[i].getTeam2());
                         }
                         break;
                     }
@@ -215,9 +236,14 @@ public class Menu {
         }
     }
 
-    private static void winnerDisplay(Team team){
-        System.out.println("Winner of the World Cup: " + team.getName());
+    private static void thirdPlaceDisplay(Team team){
+        System.out.println("\nThird Place of The World Cup: " + team.getName());
     }
+
+    private static void winnerDisplay(Team team){
+        System.out.println("\nWinner of the World Cup: " + team.getName());
+    }
+
 
     private static void exitBracket(){
         System.exit(0);

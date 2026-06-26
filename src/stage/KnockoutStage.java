@@ -18,35 +18,44 @@ public class KnockoutStage {
 
     private Match[] nextRoundRightSideMatches;
 
-    private Team[] nextRoundLeftSideTeams;
+    private final Team[] nextRoundLeftSideTeams;
 
-    private Team[] nextRoundRightSideTeams;
+    private final Team[] nextRoundRightSideTeams;
 
     private Match[] finalTeams;
 
+    private Match[] thirdPlaceTeams;
+
+    private int roundOfNumber;
+
     public KnockoutStage(int roundOfNumber){
+        this.roundOfNumber = roundOfNumber;
+        this.nextRoundLeftSideTeams = new Team[roundOfNumber/2];
+        this.nextRoundRightSideTeams = new Team[roundOfNumber/2];
         if (roundOfNumber > 4){
-            this.nextRoundLeftSideTeams = new Team[roundOfNumber/2];
-            this.nextRoundRightSideTeams = new Team[roundOfNumber/2];
             this.nextRoundLeftSideMatches = new Match[roundOfNumber/8];
             this.nextRoundRightSideMatches = new Match[roundOfNumber/8];
-            this.finalTeams = new Match[2];
+            this.finalTeams = null;
+            this.thirdPlaceTeams = null;
         }
         else if (roundOfNumber == 4){
-            this.nextRoundLeftSideTeams = new Team[1];
-            this.nextRoundRightSideTeams = new Team[1];
             this.nextRoundLeftSideMatches = null;
             this.nextRoundRightSideMatches = null;
             this.finalTeams = new Match[1];
+            this.thirdPlaceTeams = new Match[1];
         }
     }
 
-    public void addToLeftSide(Team winningTeam, int index){
-        nextRoundLeftSideTeams[index] = winningTeam;
+    public int getRoundOfNumber(){
+        return roundOfNumber;
     }
 
-    public void addToRightSide(Team winningTeam, int index){
-        nextRoundRightSideTeams[index] = winningTeam;
+    public void addToLeftSide(Team team, int index){
+        nextRoundLeftSideTeams[index] = team;
+    }
+
+    public void addToRightSide(Team team, int index){
+        nextRoundRightSideTeams[index] = team;
     }
 
     public Match[] getNextRoundLeftSide() {
@@ -73,13 +82,20 @@ public class KnockoutStage {
         }
         return nextRoundRightSideMatches;}
 
+    public Match[] getThirdPlaceTeams(){
+        if (nextRoundLeftSideTeams[1] instanceof Team team && nextRoundRightSideTeams[1] instanceof Team team2 && roundOfNumber == 4){
+            Match match = new Match(team, team2);
+            thirdPlaceTeams[0] = match;
+            return thirdPlaceTeams;
+        }
+        return null;
+    }
+
     public Match[] getFinalTeams(){
-        if (nextRoundLeftSideTeams.length == 1 && nextRoundRightSideTeams.length == 1){
-            if (nextRoundLeftSideTeams[0] instanceof Team team && nextRoundRightSideTeams[0] instanceof Team team2){
-                Match match = new Match(team, team2);
-                finalTeams[0] = match;
-                return finalTeams;
-            }
+        if (nextRoundLeftSideTeams[0] instanceof Team team && nextRoundRightSideTeams[0] instanceof Team team2 && roundOfNumber == 4){
+            Match match = new Match(team, team2);
+            finalTeams[0] = match;
+            return finalTeams;
         }
         return null;
     }
