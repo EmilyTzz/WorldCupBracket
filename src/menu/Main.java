@@ -5,7 +5,7 @@ import menu.Menu;
 import java.io.File;
 
 public class Main{
-    public static void main(String args[]){
+    public void main(String args[]){
         if (args.length > 1){
             System.out.println("Invalid Number of Arguments");
         }

@@ -89,22 +89,34 @@ public class Menu {
         for (int i = 0; i < groupStage.getTop3s().size(); i++) {
             System.out.println(i + 1 + ". " + groupStage.getTop3s().get(i));
         }
-        while (true) {
-            try {
-                for (int i = 0; i < 8; i++) {
-                    Scanner scanner = new Scanner(System.in);
-                    System.out.print("Top " + (i + 1) + " Third Place Team: ");
-                    int option = scanner.nextInt();
-                    if (option < 13 && option > 0 && groupStage.top3sContains(groupStage.getTop3s().get(option - 1)) == false) {
-                        groupStage.addBestTop3s(groupStage.getTop3s().get(option - 1));
-                    }
-                }
-                break;
-            } catch (InputMismatchException e) {
-                System.out.println("Please enter a valid number");
-            }
+        for (int i = 0; i < 8; i++) {
+            chooseBestTop3sHelper(groupStage, i);
         }
         displayAllTopTeams(groupStage);
+    }
+
+    private static void chooseBestTop3sHelper(GroupStage groupStage, int index){
+        while (true){
+            try{
+                System.out.print("Top " + (index + 1) + " Third Place Team: ");
+                Scanner scanner = new Scanner(System.in);
+                int option = scanner.nextInt();
+                if (groupStage.top3sContains(groupStage.getTop3s().get(option - 1))){
+                    System.out.println("You have already chosen this team");
+                }
+                else if (option < 13 && option > 0) {
+                    groupStage.addBestTop3s(groupStage.getTop3s().get(option - 1));
+                    break;
+                }
+                else{
+                    System.out.println("Please choose a valid team");
+                }
+            }catch (InputMismatchException e) {
+                System.out.println("Please enter a valid number");
+            }catch (IndexOutOfBoundsException e){
+                System.out.println("Please choose a valid team");
+            }
+        }
     }
 
     private static void displayAllTopTeams(GroupStage groupStage) {
@@ -228,6 +240,9 @@ public class Menu {
                             thirdPlaceDisplay(matches[i].getTeam2());
                         }
                         break;
+                    }
+                    else{
+                        System.out.println("Please select a valid Team");
                     }
                 }catch (IllegalArgumentException e){
                     System.out.println("Please select a valid Team");
