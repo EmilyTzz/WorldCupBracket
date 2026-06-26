@@ -76,12 +76,12 @@ public class GroupStage {
     }
 
     public boolean top3sContains(Team team){
-        for (int i = 0; i < top3s.size(); i++){
-            if (team.getName().equals(top3s.get(i).getName())){
-                return false;
+        for (int i = 0; i < bestTop3s.size(); i++){
+            if (team.getName().equals(bestTop3s.get(i).getName())){
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     public Group[] sortGroups() {

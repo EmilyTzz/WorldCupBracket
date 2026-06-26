@@ -7,7 +7,7 @@ This is a Java-application that generates the FIFA World Cup 2026 Knockout brack
 - Generates a full FIFA World Cup 2026 knockout bracket
 - Allows user to rank teams in the Group Stage, and predict which team will win in each matchup in the Knockout Rounds
 - Automatically generates the Round of 32 matchups based on the Group Stage results
-- Has a full tournament progression: Group Stage, Round of 32, Round of 16, Quarterfinals, Semifinals, Final
+- Has a full tournament progression: Group Stage, Round of 32, Round of 16, Quarterfinals, Semifinals, Third-Place Playoff, and Final
 - Dynamically links matches so winners can advance automatically in each knockout stage
 
 ## How It Works
