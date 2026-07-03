@@ -24,4 +24,18 @@ public class Match {
         return team2;
     }
 
+    public double calculateWinProbability(){
+        double ratingDiff = 0.0;
+        // makes sure the point difference is not negative
+        if (team1.getPoint()-team2.getPoint()>0){
+            ratingDiff = team1.getPoint()-team2.getPoint();
+        }
+        else if (team2.getPoint()-team1.getPoint()>0){
+            ratingDiff = team2.getPoint()-team1.getPoint();
+        }
+        return 1.0/(1.0+Math.pow(10, ratingDiff)/400.0); // Elo-style probability formula
+    }
+
+
+
 }

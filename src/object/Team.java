@@ -6,10 +6,10 @@ public class Team {
 
     private String group;
 
-    private float points;
+    private double points;
 
 
-    public Team(String name, String group, float points){
+    public Team(String name, String group, double points){
         this.name = name;
         this.group = group;
         this.points = points;
@@ -23,7 +23,7 @@ public class Team {
         return group;
     }
 
-    public float getPoint(){
+    public double getPoint(){
         return points;
     }
 
@@ -31,4 +31,5 @@ public class Team {
     public String toString() {
         return name;
     }
+
 }

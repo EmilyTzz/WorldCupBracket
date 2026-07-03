@@ -19,7 +19,7 @@ public class Reader {
                 if (data.length == 3){
                     String groupName = data[0];
                     String teamName = data[1];
-                    float points = Float.parseFloat(data[2]);
+                    double points = Double.parseDouble(data[2]);
                     Team team = new Team(teamName, groupName, points);
                     teams.add(team);
                 }
