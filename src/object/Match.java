@@ -26,14 +26,14 @@ public class Match {
 
     private double calculateWinProbability(Team team1, Team team2){
         double ratingDiff = team2.getPoint()-team1.getPoint();
-        return 1.0/(1.0+Math.pow(10, ratingDiff/400.0)); // Elo-style probability formula
+        return 1.0/(1.0+Math.pow(10, ratingDiff/700.0)); // Elo-style probability formula
     }
 
     public StringBuilder getProbabilityDisplay(){
         StringBuilder sb = new StringBuilder();
         sb.append("\n--------Match Predictions--------\n");
-        sb.append(team1.getName() + ": " + Math.round(calculateWinProbability(team1, team2)*100) + "%\n");
-        sb.append(team2.getName() + ": " + Math.round(calculateWinProbability(team2, team1)*100) + "%\n");
+        sb.append(team1.getName() + ": " + Math.round(calculateWinProbability(team1, team2)*100) + "% Win Probability\n");
+        sb.append(team2.getName() + ": " + Math.round(calculateWinProbability(team2, team1)*100) + "% Win Probability\n");
         return sb;
     }
 
