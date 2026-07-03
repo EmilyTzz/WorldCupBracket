@@ -6,10 +6,13 @@ public class Team {
 
     private String group;
 
+    private float points;
 
-    public Team(String name, String group){
+
+    public Team(String name, String group, float points){
         this.name = name;
         this.group = group;
+        this.points = points;
     }
 
     public String getName(){
@@ -18,6 +21,10 @@ public class Team {
 
     public String getGroup(){
         return group;
+    }
+
+    public float getPoint(){
+        return points;
     }
 
     @Override

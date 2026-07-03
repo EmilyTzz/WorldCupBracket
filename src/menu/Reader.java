@@ -16,10 +16,11 @@ public class Reader {
             reader.readLine();
             while((line = reader.readLine()) != null){
                 String[] data = line.split(",");
-                if (data.length == 2){
+                if (data.length == 3){
                     String groupName = data[0];
                     String teamName = data[1];
-                    Team team = new Team(teamName, groupName);
+                    float points = Float.parseFloat(data[2]);
+                    Team team = new Team(teamName, groupName, points);
                     teams.add(team);
                 }
             }
