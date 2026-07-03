@@ -1,49 +1,49 @@
-Group,Team
-Group A,Mexico
-Group A,South Africa
-Group A,South Korea
-Group A,Czechia
-Group B,Canada
-Group B,Bosnia
-Group B,Qatar
-Group B,Switzerland
-Group C,Brazil
-Group C,Morocco
-Group C,Haiti
-Group C,Scotland
-Group D,United States
-Group D,Paraguay
-Group D,Australia
-Group D,Turkey
-Group E,Germany
-Group E,Curacao
-Group E,Ivory Coast
-Group E,Ecuador
-Group F,Netherlands
-Group F,Japan
-Group F,Sweden
-Group F,Tunisia
-Group G,Belgium
-Group G,Egypt
-Group G,Iran
-Group G,New Zealand
-Group H,Spain
-Group H,Cape Verde
-Group H,Saudi Arabia
-Group H,Uruguay
-Group I,France
-Group I,Senegal
-Group I,Norway
-Group I,Bolivia
-Group J,Argentina
-Group J,Algeria
-Group J,Austria
-Group J,Jordan
-Group K,Portugal
-Group K,Uzbekistan
-Group K,Colombia
-Group K,Congo DR
-Group L,England
-Group L,Croatia
-Group L,Ghana
-Group L,Panama
+Group,Team,Points
+Group A,Mexico,1687.48
+Group A,South Africa,1428.38
+Group A,South Korea,1591.63
+Group A,Czechia,1505.74
+Group B,Canada,1559.48
+Group B,Bosnia,1387.22
+Group B,Qatar,1450.31
+Group B,Switzerland,1650.06
+Group C,Brazil,1765.86
+Group C,Morocco,1755.10
+Group C,Haiti,1293.10
+Group C,Scotland,1503.34
+Group D,United States,1671.23
+Group D,Paraguay,1505.35
+Group D,Australia,1571.03
+Group D,Turkey,1605.73
+Group E,Germany,1735.77
+Group E,Curacao,1294.77
+Group E,Ivory Coast,1540.87
+Group E,Ecuador,1598.52
+Group F,Netherlands,1753.57
+Group F,Japan,1661.58
+Group F,Sweden,1509.79
+Group F,Tunisia,1476.41
+Group G,Belgium,1742.24
+Group G,Egypt,1562.37
+Group G,Iran,1619.58
+Group G,New Zealand,1275.58
+Group H,Spain,1874.71
+Group H,Cape Verde,1371.11
+Group H,Saudi Arabia,1423.88
+Group H,Uruguay,1673.07
+Group I,France,1870.70
+Group I,Senegal,1687.48
+Group I,Norway,1557.44
+Group I,Iraq,1446.28
+Group J,Argentina,1877.27
+Group J,Algeria,1571.03
+Group J,Austria,1597.40
+Group J,Jordan,1387.74
+Group K,Portugal,1767.85
+Group K,Uzbekistan,1458.20
+Group K,Colombia,1698.35
+Group K,Congo DR,1474.43
+Group L,England,1828.02
+Group L,Croatia,1714.87
+Group L,Ghana,1346.88
+Group L,Panama,1539.16
