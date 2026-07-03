@@ -24,18 +24,17 @@ public class Match {
         return team2;
     }
 
-    public double calculateWinProbability(){
-        double ratingDiff = 0.0;
-        // makes sure the point difference is not negative
-        if (team1.getPoint()-team2.getPoint()>0){
-            ratingDiff = team1.getPoint()-team2.getPoint();
-        }
-        else if (team2.getPoint()-team1.getPoint()>0){
-            ratingDiff = team2.getPoint()-team1.getPoint();
-        }
-        return 1.0/(1.0+Math.pow(10, ratingDiff)/400.0); // Elo-style probability formula
+    private double calculateWinProbability(Team team1, Team team2){
+        double ratingDiff = team2.getPoint()-team1.getPoint();
+        return 1.0/(1.0+Math.pow(10, ratingDiff/400.0)); // Elo-style probability formula
     }
 
-
+    public StringBuilder getProbabilityDisplay(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("\n--------Match Predictions--------\n");
+        sb.append(team1.getName() + ": " + Math.round(calculateWinProbability(team1, team2)*100) + "%\n");
+        sb.append(team2.getName() + ": " + Math.round(calculateWinProbability(team2, team1)*100) + "%\n");
+        return sb;
+    }
 
 }

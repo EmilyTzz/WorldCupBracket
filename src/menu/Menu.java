@@ -253,6 +253,7 @@ public class Menu {
             System.out.println(i + 1 + ". " + matches[i].toString());
             System.out.println("    1. " + matches[i].getTeam1());
             System.out.println("    2. " + matches[i].getTeam2());
+            System.out.println(matches[i].getProbabilityDisplay());
             while (true){
                 try{
                     System.out.print("Winner: ");
